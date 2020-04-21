@@ -7,20 +7,30 @@ var request = require('request');
 
 //variablen
 var parameter =process.argv[2];
-var category = process.argv.length > 2 ? process.argv[2] : 'business';
+var category;
 
 
-request('https://newsapi.org/v2/top-headlines?country=de&apiKey=' + NEWS_API_KEY + '&category=' + category, function (error, response, body){
+if (parameter === '-h' || parameter === '--h'){
+    console.log('Usage: node news.js <category>');
+    console.log('Categories: business entertainment general health science sports technology');
+    process.exit(0);
+}else {
+    category = process.argv.length > 2 ? process.argv[2] : 'business';
+}
+
+
+request(
+    'https://newsapi.org/v2/top-headlines?country=de&apiKey=' + NEWS_API_KEY + '&category=' + category, function (error, response, body){
     
-    if (response.statusCode === 200) {
-        var bodyObj = JSON.parse(body);
-        console.log('Ergebnisse insgesamt: ' + bodyObj.totalResults);
-    }
+        if (response.statusCode === 200) {
+            var bodyObj = JSON.parse(body);
+            console.log('Ergebnisse insgesamt: ' + bodyObj.totalResults);
+        }
 
-    for(var i = 0; i < 5 ; i++) { //statt 5 stand <bodyObj.articles.length>
-        console.log((i+1) + ', ' + bodyObj.articles[i].title);
-    }
-    
+        for(var i = 0; i < 5 ; i++) { //statt 5 stand <bodyObj.articles.length>
+            console.log((i+1) + ', ' + bodyObj.articles[i].title);
+        }
+        
 });
 
 
