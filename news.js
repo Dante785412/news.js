@@ -22,6 +22,8 @@ request('https://newsapi.org/v2/top-headlines?country=de&apiKey=' + NEWS_API_KEY
     }
 
 
+
+    
 });
 
 
