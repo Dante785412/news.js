@@ -20,9 +20,6 @@ request('https://newsapi.org/v2/top-headlines?country=de&apiKey=' + NEWS_API_KEY
     for(var i = 0; i < 5 ; i++) { //statt 5 stand <bodyObj.articles.length>
         console.log((i+1) + ', ' + bodyObj.articles[i].title);
     }
-
-
-
     
 });
 
