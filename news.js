@@ -2,25 +2,38 @@ const NEWS_API_KEY = '6d99e08921434e1b9c2e043c7991977a';
 
 var request = require('request');
 
+function printUsage(){
+    console.log('                           ___---|||HELP|||---___ \n Usage: node news.js <category>');
+    console.log('Categories: business entertainment general health science sports technology');
+
+}
 //console.log(process.argv);
 //var category = process.argv[2] || 'business';
 
 //variablen
-var parameter =process.argv[2];
-var category;
+var category = 'business'; // parameter -c
+var country = 'de';  // parameter -l
+var numArgs = process.argv.length;
+var currentArg;
 
-
-if (parameter === '-h' || parameter === '--h'){
-    console.log('Usage: node news.js <category>');
-    console.log('Categories: business entertainment general health science sports technology');
-    process.exit(0);
-}else {
-    category = process.argv.length > 2 ? process.argv[2] : 'business';
+for(var i = 2; i< numArgs; i++ ) {
+    currentArg = process.argv[i];
+    if (currentArg === '-h' || currentArg === '--h'){
+        printUsage();
+        process.exit(0);
+    }else if ((currentArg === '-c'|| currentArg === '-category') && numArgs > i) {
+        i += 1;
+        category = process.argv[i];
+    }else if ((currentArg === '-l' || currentArg === '-country')&& numArgs > i) {
+        i += 1;
+        country = process.argv[i];
+    }
 }
 
 
+
 request(
-    'https://newsapi.org/v2/top-headlines?country=de&apiKey=' + NEWS_API_KEY + '&category=' + category, function (error, response, body){
+    'https://newsapi.org/v2/top-headlines?country=' + country + '&apiKey=' + NEWS_API_KEY + '&category=' + category, function (error, response, body){
     
         if (response.statusCode === 200) {
             var bodyObj = JSON.parse(body);
