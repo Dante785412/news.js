@@ -10,8 +10,13 @@ function printUsage(){
 
 var args = yargs
     .option ('c', {
-         'describe':'One of: business entertainment general health science sports technology',
-         'alias': 'category'
+         'describe':'NEWS category of interest',
+         'alias': 'category',
+         'choices': ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'],
+         'type': 'string',
+         'default': 'busines',
+         'demandOption': 'false'
+
     })
     .argv;
 
