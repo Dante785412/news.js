@@ -1,12 +1,23 @@
 const NEWS_API_KEY = '6d99e08921434e1b9c2e043c7991977a';
 
 var request = require('request');
-
+var yargs   = require('yargs');
 function printUsage(){
     console.log('                           ___---|||HELP|||---___ \n Usage: node news.js <category>');
     console.log('Categories: business entertainment general health science sports technology');
 
 }
+
+var args = yargs
+    .option ('c', {
+         'describe':'One of: business entertainment general health science sports technology',
+         'alias': 'category'
+    })
+    .argv;
+
+console.log(args);
+console.log('Category: ' + args.category);
+process.exit(0);
 //console.log(process.argv);
 //var category = process.argv[2] || 'business';
 
