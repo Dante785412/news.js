@@ -1,4 +1,4 @@
-const NEWS_API_KEY = '6d99e08921434e1b9c2e043c7991977a';
+require ('dotenv').config();
 
 var request = require('request');
 var yargs   = require('yargs');
@@ -36,12 +36,12 @@ var requestOptions = {
     url:'https://newsapi.org/v2/top-headlines',
     qs: {
         country: args.country,
-        apiKey: NEWS_API_KEY,
+        apiKey: process.env.NEWS_API_KEY,
         category:args.category
     }
 };
 
-console.log(requestOptions);
+
 
 request(
     requestOptions, 
